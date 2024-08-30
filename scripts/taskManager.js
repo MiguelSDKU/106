@@ -51,6 +51,26 @@ function displayTask(task) {
 
 function loadTask() {
   console.log("Hello from loadTask");
+
+  $.ajax({
+    type: "get",
+    url: "http://fsdiapi.azurewebsites.net/api/tasks/",
+    success: function (response) {
+      console.log("response: ", response);
+
+      let data = JSON.parse(response);
+      console.log("response json: ", data);
+
+      //travel the array, get some element from the array
+      for (let i = 0; i < data.length; i++) {
+        let task = data[i];
+        console.log("this task is: ", task);
+        if (task.name === "Mike") {
+          displayTask(task);
+        }
+      }
+    },
+  });
 }
 
 function init() {
